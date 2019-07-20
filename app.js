@@ -22,8 +22,10 @@ app.use(customMiddleware)
 // bringing routes from routes
 const postRoutes = require("./routes/post")
 
-// passing the routes as a callback func
-app.get('/', postRoutes.getPosts)
+// I am using the routes as a middleware, so the use function will take the path and match it in my route middleware 
+// with the help of express router and then take me there
+// any request that is gotten to the '/' path will be passed into postRoutes and then it will be handled there
+app.use('/', postRoutes)
 
 const port = 8080;
 
