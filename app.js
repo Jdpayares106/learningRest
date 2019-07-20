@@ -3,6 +3,10 @@ const express = require("express");
 // body-parser module is used to parse the body of an incoming request
 const bodyParser = require("body-parser");
 
+// express-validator module is used to provide user friendly error messages when user
+// tries to create a post that goes against the schema 
+const expressValidator = require("express-validator");
+
 // learning db using mnogoose for mongodb
 const mongoose = require("mongoose");
 
@@ -29,6 +33,9 @@ app.use(morgran('dev'))
 
 // body-parser comes with a json method that will format the incoming request into JSON format
 app.use(bodyParser.json())
+
+// applying the express validator as a middleware
+app.use(expressValidator())
 
 // bringing routes from routes
 const postRoutes = require("./routes/post")

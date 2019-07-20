@@ -4,6 +4,8 @@
 
 const postController = require("../controllers/postsController");
 const express = require("express");
+// importing my validation helper 
+const validator = require("../helpers/helper");
 
 // this way we have excess to the express router and this entire file can be used as a middleware for routes
 const router = express.Router()
@@ -14,6 +16,7 @@ router.get('/', postController.getPosts)
 
 
 // route for creating a post, using the HTTP POST method
-router.post('/post', postController.createPosts)
+// before even it creates a post, the validation will occur and once it is passed then the post will occur
+router.post('/post', validator.createPostsValidator, postController.createPosts)
 
 module.exports = router
