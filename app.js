@@ -1,5 +1,8 @@
 const express = require("express");
 
+// body-parser module is used to parse the body of an incoming request
+const bodyParser = require("body-parser");
+
 // learning db using mnogoose for mongodb
 const mongoose = require("mongoose");
 
@@ -24,6 +27,9 @@ db.on('error', err => {
 // middleware is somethig that is happening in the middle of the flow of code
 app.use(morgran('dev'))
 
+// body-parser comes with a json method that will format the incoming request into JSON format
+app.use(bodyParser.json())
+
 // bringing routes from routes
 const postRoutes = require("./routes/post")
 
@@ -32,6 +38,7 @@ const postRoutes = require("./routes/post")
 // any request that is gotten to the '/' path will be passed into postRoutes and then it will be handled there
 app.use('/', postRoutes)
 
+// port number
 const port = 8080;
 
 app.listen(port, () => {
