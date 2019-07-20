@@ -12,4 +12,8 @@ const router = express.Router()
 // anything we get, we can pass the second paramater as a callback func which will be our controller
 router.get('/', postController.getPosts)
 
+
+// route for creating a post, using the HTTP POST method
+router.post('/post', postController.createPosts)
+
 module.exports = router

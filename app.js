@@ -1,23 +1,28 @@
-const express = require("express")
+const express = require("express");
+
+// learning db using mnogoose for mongodb
+const mongoose = require("mongoose");
 
 // learning to use the morgan middleware
-const morgran = require("morgan")
+const morgran = require("morgan");
 
+// this is the life of a node server and we use this to access all of express functions
 const app = express()
 
+// connecting to the databse, connect returns a promise so we can use then to extend on it
+// I am also connecting to my local db while as the tutorial is using a cloud databse: https://mlab.com/
+mongoose.connect("mongodb://localhost:27017/node_test", {useNewUrlParser: true})
+  .then(() => console.log("db connected"))
 
-// I can also create custom middleware and apply them using the "use" function from express
-const customMiddleware = (req, res, next) => {
-  console.log("my middleware!")
-  // node js is a singlethreaded event loop based program so with the next method we let node know to move on after
-  // the job of our middleware is done
-  next()
-}
+// the on function from mongoose actually lets us capture error in the database init
+let db = mongoose.connection;
+db.on('error', err => {
+  console.error("DB CONNNECTION ERROR" + err)
+});
+
 
 // middleware is somethig that is happening in the middle of the flow of code
 app.use(morgran('dev'))
-// using my own middleware the same way as a third party
-app.use(customMiddleware)
 
 // bringing routes from routes
 const postRoutes = require("./routes/post")
